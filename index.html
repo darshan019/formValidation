@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        fieldset{
+            display: grid;
+            grid-template-rows: repeat(auto,1fr);
+            gap: 15px;
+        }
+        #submit{
+            width: 100px;
+            height: 30px;
+        }
+
+        input:valid{
+            border: 2px solid gray;
+        }
+    </style>
+    <form action="#">
+        <fieldset>
+            <legend>Valdiation</legend>
+        
+            <label for="mail">E-mail</label>
+            <input type="email" id="mail" minlength="8" required>
+            <span id="mailErr"></span>
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country" minlength="4" required>
+        
+        
+            <label for="code">Zip-Code</label>
+            <input type="text" id="code" minlength="6" maxlength="6" required>
+            <span id="codeErr"></span>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" minlength="8" maxlength="20" required>
+            <span id="passwordErr"></span>
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" required>
+            <span id="cfrmErr"></span>
+
+            <input type="submit" name="submit" id="submit">
+        </fieldset>
+    </form>
+
+    <script>
+        const mail = document.getElementById('mail')
+        const code = document.getElementById('code')
+        const password = document.getElementById('password')
+        const confirmPassword = document.getElementById('confirm-password')
+    
+        mail.addEventListener('input', (e) => {
+            if(mail.validity.typeMismatch){
+                mail.style.border = '2px solid red'
+                document.getElementById('mailErr').textContent = 'Enter a valid email adress'
+            }
+            else{
+                document.getElementById('mailErr').textContent = ''
+                mail.style.border = '2px solid gray'
+            }
+        })
+        code.addEventListener('input', () => {
+            if(code.validity.tooShort || code.validity.tooLong){
+                code.style.border = '2px solid red'
+                document.getElementById('codeErr').textContent = 'Enter a valid code'    
+            }
+            else{
+                document.getElementById('codeErr').textContent = ''
+                code.style.border = '2px solid gray'
+            }
+        })
+        password.addEventListener('input', () => {
+            if(password.validity.tooShort || password.validity.tooLong){
+                code.style.border = '2px solid red'
+                document.getElementById('passwordErr').textContent = 'Enter a valid length'    
+            }
+            else{
+                document.getElementById('passwordErr').textContent = ''
+                code.style.border = '2px solid gray'
+            }
+        })
+        confirmPassword.addEventListener('input', () => {
+            if(password.value !== confirmPassword.value){
+                confirmPassword.style.border = '2px solid red'
+                document.getElementById('cfrmErr').textContent = 'Passwords does not match'
+            }
+            else{
+                document.getElementById('cfrmErr').textContent = 'Passwords match'
+                confirmPassword.style.border = '2px solid gray'
+            }
+        })
+    </script>
+</body>
+</html>
